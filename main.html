@@ -1,16 +1,102 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
+  <title>Tic Tac Toe</title>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 5px;
+      width: 300px;
+      height: 300px;
+    }
+
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background-color: #f2f2f2;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+  <div class="container">
+    <input type="text" id="player-1" placeholder="Player 1 Name">
+    <input type="text" id="player-2" placeholder="Player 2 Name">
+    <button id="submit">Submit</button>
+    <div id="game-container" style="display: none;">
+      <h1>Tic Tac Toe</h1>
+      <div class="message"></div>
+      <div class="board">
+        <div class="cell" id="1"></div>
+        <div class="cell" id="2"></div>
+        <div class="cell" id="3"></div>
+        <div class="cell" id="4"></div>
+        <div class="cell" id="5"></div>
+        <div class="cell" id="6"></div>
+        <div class="cell" id="7"></div>
+        <div class="cell" id="8"></div>
+        <div class="cell" id="9"></div>
+      </div>
+    </div>
+  </div>
 
-</body>
+  <script>
+    var player1 = '';
+    var player2 = '';
+    var currentPlayer = '';
+    var moves = 0;
+    var gameOver = false;
 
-</html>
+    var cells = document.querySelectorAll('.cell');
+    var messageElement = document.querySelector('.message');
+    var submitButton = document.getElementById('submit');
+    var gameContainer = document.getElementById('game-container');
+
+    submitButton.addEventListener('click', function() {
+      player1 = document.getElementById('player-1').value;
+      player2 = document.getElementById('player-2').value;
+
+      if (player1 && player2) {
+        currentPlayer = player1;
+        messageElement.textContent = player1 + ", you're up!";
+        gameContainer.style.display = 'block';
+      }
+    });
+
+    function checkWinner() {
+      var winningCombinations = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9],
+        [1, 4, 7],
+        [2, 5, 8],
+        [3, 6, 9],
+        [1, 5, 9],
+        [3, 5, 7]
+      ];
+
+      for (var i = 0; i < winningCombinations.length; i++) {
+        var combination = winningCombinations[i];
+        var cell1 = document.getElementById(combination[0]).textContent;
+        var cell2 = document.getElementById(combination[1]).textContent;
+        var cell3 = document.getElementById(combination[2]).
